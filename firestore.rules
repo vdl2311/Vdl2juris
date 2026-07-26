@@ -1,9 +1,36 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Allow read/write to authenticated users or during development
-    match /{document=**} {
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128;
+    }
+
+    // Allow read and write operations for authenticated users or in development mode
+    match /processos/{processoId} {
       allow read, write: if true;
+    }
+
+    match /clientes/{clienteId} {
+      allow read, write: if true;
+    }
+
+    match /tarefas/{tarefaId} {
+      allow read, write: if true;
+    }
+
+    match /documentos/{documentoId} {
+      allow read, write: if true;
+    }
+
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
     }
   }
 }

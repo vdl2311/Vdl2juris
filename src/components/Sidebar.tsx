@@ -10,6 +10,7 @@ import {
   ShieldCheck, 
   ChevronDown,
   Scale,
+  UserCheck,
   X
 } from 'lucide-react';
 import { UserRole, UserProfile } from '../types';
@@ -51,7 +52,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'clientes', label: 'Clientes (CRM)', icon: Users },
     { id: 'documentos', label: 'Documentos & Extrator', icon: FileText },
     { id: 'prazos', label: 'Tarefas & Prazos', icon: CalendarCheck, badgeCount: unreadAlertsCount },
-    { id: 'assistente-ia', label: 'Assistente IA Gemini', icon: Sparkles, highlight: true },
+    { id: 'assistente-ia', label: 'Copiloto & Minutas IA', icon: Sparkles, highlight: true },
+    { id: 'modo-cliente', label: 'Modo Cliente (Portal)', icon: UserCheck, badge: 'Transparência' },
     { id: 'arquitetura', label: 'Arquitetura & Especificação', icon: Layers },
   ];
 

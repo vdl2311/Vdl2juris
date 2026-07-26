@@ -1,73 +1,95 @@
 {
-  "collections": {
-    "processos": {
-      "title": "Processos Judiciais",
-      "description": "Processos sincronizados com DataJud e cadastrados no sistema",
-      "documents": {
-        "proc_demo_1": {
-          "numeroCNJ": "5001234-88.2025.8.26.0100",
-          "clienteNome": "TechServices Soluções Ltda",
-          "tribunal": "TJSP",
-          "comarca": "São Paulo",
-          "vara": "3ª Vara Cível - Foro Central",
-          "classe": "Procedimento Comum Cível",
-          "assunto": "Inadimplemento Contratual / Cobrança",
-          "status": "ativo",
-          "advogadoNome": "Dra. Helena Alencar",
-          "ultimaMovimentacao": "Petição Intermediária Juntada",
-          "dataDistribuicao": "2025-01-15",
-          "valorCausa": 185000,
-          "proximaAudiencia": "2026-08-10T14:00:00",
-          "createdBy": "system"
-        }
-      }
+  "entities": {
+    "Processo": {
+      "title": "Processo Judicial",
+      "description": "Processo judicial cadastrado ou sincronizado via DataJud CNJ",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "numeroCnj": { "type": "string", "maxLength": 30 },
+        "clienteNome": { "type": "string", "maxLength": 120 },
+        "clienteId": { "type": "string", "maxLength": 64 },
+        "tribunal": { "type": "string", "maxLength": 20 },
+        "comarca": { "type": "string", "maxLength": 100 },
+        "vara": { "type": "string", "maxLength": 100 },
+        "classeProcessual": { "type": "string", "maxLength": 100 },
+        "assunto": { "type": "string", "maxLength": 200 },
+        "status": { "type": "string", "enum": ["Ativo", "Arquivado", "Encerrado", "Pendente"] },
+        "advogadoResponsavel": { "type": "string", "maxLength": 100 },
+        "ultimaMovimentacao": { "type": "string", "maxLength": 250 },
+        "dataDistribuicao": { "type": "string", "maxLength": 20 },
+        "valorCausa": { "type": "number" },
+        "proximaAudiencia": { "type": "string", "maxLength": 30 },
+        "resumoIa": { "type": "string", "maxLength": 2000 }
+      },
+      "required": ["id", "numeroCnj", "clienteNome", "tribunal", "status"]
     },
-    "clientes": {
-      "title": "Clientes",
-      "description": "Cadastro de clientes pessoa física e jurídica",
-      "documents": {
-        "cli_demo_1": {
-          "nome": "TechServices Soluções Ltda",
-          "cpfCnpj": "12.345.678/0001-90",
-          "tipo": "PJ",
-          "email": "contato@techservices.com.br",
-          "telefone": "(11) 98765-4321",
-          "status": "ativo",
-          "totalProcessos": 3,
-          "createdBy": "system"
-        }
-      }
+    "Cliente": {
+      "title": "Cliente do Escritório",
+      "description": "Cadastro completo de cliente para CRM Jurídico",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "nome": { "type": "string", "maxLength": 120 },
+        "cpfCnpj": { "type": "string", "maxLength": 20 },
+        "tipo": { "type": "string", "enum": ["PF", "PJ"] },
+        "email": { "type": "string", "maxLength": 100 },
+        "telefone": { "type": "string", "maxLength": 30 },
+        "status": { "type": "string", "enum": ["Ativo", "Inativo", "Lead"] },
+        "totalProcessos": { "type": "number" }
+      },
+      "required": ["id", "nome", "cpfCnpj", "tipo"]
     },
-    "tarefas": {
-      "title": "Tarefas e Prazos",
-      "description": "Gestão de prazos e tarefas da equipe jurídica",
-      "documents": {
-        "tar_demo_1": {
-          "titulo": "Elaborar réplica à contestação",
-          "numeroCNJ": "5001234-88.2025.8.26.0100",
-          "prazo": "2026-07-30",
-          "prioridade": "alta",
-          "status": "pendente",
-          "atribuidoA": "Dr. Roberto Fonseca",
-          "tipo": "Prazo Processual",
-          "createdBy": "system"
-        }
-      }
+    "Tarefa": {
+      "title": "Tarefa e Prazo Processual",
+      "description": "Controle de tarefas, prazos fatais e audiências",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "titulo": { "type": "string", "maxLength": 150 },
+        "numeroCnj": { "type": "string", "maxLength": 30 },
+        "prazo": { "type": "string", "maxLength": 20 },
+        "prioridade": { "type": "string", "enum": ["Baixa", "Média", "Alta", "Urgente"] },
+        "status": { "type": "string", "enum": ["Pendente", "Em Andamento", "Concluído", "Atrasado"] },
+        "atribuidoA": { "type": "string", "maxLength": 100 },
+        "tipo": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["id", "titulo", "prazo", "status"]
     },
-    "documentos": {
-      "title": "Documentos e Peças",
-      "description": "Repositório de documentos e minutas geradas",
-      "documents": {
-        "doc_demo_1": {
-          "titulo": "Petição Inicial - Ação Cobrança",
-          "tipo": "Petição",
-          "tamanho": "2.4 MB",
-          "dataUpload": "2026-07-20",
-          "enviadoPor": "Dra. Helena Alencar",
-          "resumoIA": "Petição inicial cobrando R$ 185.000 por descumprimento do contrato nº 4022.",
-          "createdBy": "system"
-        }
-      }
+    "Documento": {
+      "title": "Documento e Peça Jurídica",
+      "description": "Repositório de documentos, petições e análises",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "nome": { "type": "string", "maxLength": 150 },
+        "tipo": { "type": "string", "maxLength": 50 },
+        "tamanho": { "type": "string", "maxLength": 20 },
+        "dataUpload": { "type": "string", "maxLength": 20 },
+        "enviadoPor": { "type": "string", "maxLength": 100 },
+        "resumoIa": { "type": "string", "maxLength": 2000 },
+        "processoId": { "type": "string", "maxLength": 64 },
+        "clienteId": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["id", "nome", "tipo"]
+    }
+  },
+  "firestore": {
+    "/processos/{processoId}": {
+      "schema": "Processo",
+      "description": "Coleção de processos judiciais"
+    },
+    "/clientes/{clienteId}": {
+      "schema": "Cliente",
+      "description": "Coleção de clientes do CRM"
+    },
+    "/tarefas/{tarefaId}": {
+      "schema": "Tarefa",
+      "description": "Coleção de tarefas e prazos processuais"
+    },
+    "/documentos/{documentoId}": {
+      "schema": "Documento",
+      "description": "Coleção de documentos e minutas"
     }
   }
 }

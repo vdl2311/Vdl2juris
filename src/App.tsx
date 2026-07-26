@@ -8,6 +8,7 @@ import { ClientesView } from './components/ClientesView';
 import { DocumentosView } from './components/DocumentosView';
 import { TarefasView } from './components/TarefasView';
 import { AiAssistenteView } from './components/AiAssistenteView';
+import { ModoClienteView } from './components/ModoClienteView';
 import { ArchitectureView } from './components/ArchitectureView';
 import { NewProcessModal } from './components/NewProcessModal';
 
@@ -120,7 +121,9 @@ export function App() {
       case 'prazos':
         return 'Agenda de Prazos Processuais & Tarefas';
       case 'assistente-ia':
-        return 'Estúdio de Inteligência Artificial Gemini';
+        return 'Copiloto & Gerador de Peças IA';
+      case 'modo-cliente':
+        return 'Portal de Transparência do Cliente';
       case 'arquitetura':
         return 'Especificação e Arquitetura do Sistema';
       default:
@@ -214,6 +217,14 @@ export function App() {
 
           {activeTab === 'assistente-ia' && (
             <AiAssistenteView processos={processos} />
+          )}
+
+          {activeTab === 'modo-cliente' && (
+            <ModoClienteView
+              processos={processos}
+              clientes={clientes}
+              documentos={documentos}
+            />
           )}
 
           {activeTab === 'arquitetura' && <ArchitectureView />}
