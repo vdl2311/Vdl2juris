@@ -1,0 +1,73 @@
+{
+  "collections": {
+    "processos": {
+      "title": "Processos Judiciais",
+      "description": "Processos sincronizados com DataJud e cadastrados no sistema",
+      "documents": {
+        "proc_demo_1": {
+          "numeroCNJ": "5001234-88.2025.8.26.0100",
+          "clienteNome": "TechServices Soluções Ltda",
+          "tribunal": "TJSP",
+          "comarca": "São Paulo",
+          "vara": "3ª Vara Cível - Foro Central",
+          "classe": "Procedimento Comum Cível",
+          "assunto": "Inadimplemento Contratual / Cobrança",
+          "status": "ativo",
+          "advogadoNome": "Dra. Helena Alencar",
+          "ultimaMovimentacao": "Petição Intermediária Juntada",
+          "dataDistribuicao": "2025-01-15",
+          "valorCausa": 185000,
+          "proximaAudiencia": "2026-08-10T14:00:00",
+          "createdBy": "system"
+        }
+      }
+    },
+    "clientes": {
+      "title": "Clientes",
+      "description": "Cadastro de clientes pessoa física e jurídica",
+      "documents": {
+        "cli_demo_1": {
+          "nome": "TechServices Soluções Ltda",
+          "cpfCnpj": "12.345.678/0001-90",
+          "tipo": "PJ",
+          "email": "contato@techservices.com.br",
+          "telefone": "(11) 98765-4321",
+          "status": "ativo",
+          "totalProcessos": 3,
+          "createdBy": "system"
+        }
+      }
+    },
+    "tarefas": {
+      "title": "Tarefas e Prazos",
+      "description": "Gestão de prazos e tarefas da equipe jurídica",
+      "documents": {
+        "tar_demo_1": {
+          "titulo": "Elaborar réplica à contestação",
+          "numeroCNJ": "5001234-88.2025.8.26.0100",
+          "prazo": "2026-07-30",
+          "prioridade": "alta",
+          "status": "pendente",
+          "atribuidoA": "Dr. Roberto Fonseca",
+          "tipo": "Prazo Processual",
+          "createdBy": "system"
+        }
+      }
+    },
+    "documentos": {
+      "title": "Documentos e Peças",
+      "description": "Repositório de documentos e minutas geradas",
+      "documents": {
+        "doc_demo_1": {
+          "titulo": "Petição Inicial - Ação Cobrança",
+          "tipo": "Petição",
+          "tamanho": "2.4 MB",
+          "dataUpload": "2026-07-20",
+          "enviadoPor": "Dra. Helena Alencar",
+          "resumoIA": "Petição inicial cobrando R$ 185.000 por descumprimento do contrato nº 4022.",
+          "createdBy": "system"
+        }
+      }
+    }
+  }
+}

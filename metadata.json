@@ -1,0 +1,6 @@
+{
+  "name": "JuriSmart AI - Sistema Jurídico Inteligente",
+  "description": "Sistema de gestão jurídica moderna estilo Linear/Stripe/Notion com automação DataJud CNJ, IA Gemini, gestão de processos, clientes, prazos e documentos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
