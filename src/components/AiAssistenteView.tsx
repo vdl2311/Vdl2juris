@@ -88,17 +88,32 @@ export const AiAssistenteView: React.FC<AiAssistenteViewProps> = ({ processos, i
         }),
       });
 
-      const data = await response.json();
+      let replyContent = '';
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        replyContent = errorData.message || errorData.error || `Erro de conexão com servidor (${response.status}). Verifique se a variável GEMINI_API_KEY foi adicionada no Vercel.`;
+      } else {
+        const data = await response.json();
+        replyContent = data.reply || 'Desculpe, ocorreu uma falha no processamento da resposta.';
+      }
+
       const modelMsg: AiChatMessage = {
         id: `m-${Date.now()}`,
         role: 'model',
-        content: data.reply || 'Desculpe, ocorreu uma falha no processamento.',
+        content: replyContent,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
 
       setMessages((prev) => [...prev, modelMsg]);
     } catch (err) {
       console.error('Erro no chat da IA:', err);
+      const errorMsg: AiChatMessage = {
+        id: `m-${Date.now()}`,
+        role: 'model',
+        content: 'Desculpe, não foi possível conectar ao servidor de IA. Verifique se as variáveis GEMINI_API_KEY e Vercel Serverless Functions estão ativas.',
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      };
+      setMessages((prev) => [...prev, errorMsg]);
     } finally {
       setIsLoadingChat(false);
     }
